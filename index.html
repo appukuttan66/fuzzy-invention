@@ -1,0 +1,21 @@
+<html>
+<body>
+<script>
+var key = window.location.href.split("go/")[1].replace("/","")
+
+var urls={
+    'peakd':'https://peakd.com/@appukuttan66',
+    'ecency':"https://ecency.com/@appukuttan66",
+    'hb':"https://hive.blog/@appukuttan66",
+}
+
+if(key){
+  if(urls[key]){
+     window.location.href=urls[key] 
+  }else{
+     document.write("'"+key+"' not found :(");
+  } 
+}
+</script>
+</body>
+</html>
