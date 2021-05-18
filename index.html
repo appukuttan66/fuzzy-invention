@@ -1,21 +1,34 @@
 <html>
+<head>
+<script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+<script>
+2
+Parse.initialize("jMJwCz9ppQmM3YqdlOEqNZj1el7LYWyHQbWfiQMO", "Ja53qPPMtHsAjTEXTzmZ0unU3MDpkOYuJEQmSu8U");
+Parse.serverURL = "https://parseapi.back4app.com/";
+</script>
+</head>
 <body>
     <script>
     var key = window.location.search.replace("?","");
 
-    var urls={
-        'peakd':'https://peakd.com/@appukuttan66',
-        'ecency':"https://ecency.com/@appukuttan66",
-        'hb':"https://hive.blog/@appukuttan66",
-    }
+    var Linkdb = new Parse.Object.extend("Linkdb");
 
-    if(key){
-        if(urls[key]){
-            window.location.href=urls[key] 
-        }else{
-            alert( key + " not found");
-        } 
+    var shortlink = key;
+
+    function read() {
+        query = new Parse.Query(Linkdb);
+        query.equalTo("shortlink", shortlink);
+        query.first().then(function(pet){
+            if(pet){
+               window.location.href = pet.get("url");
+            } else {
+               alert("Nothing found, please try again");
+            }
+        }).catch(function(error){
+            alert("Error: " + error.code + " " + error.message);       
+        });
     }
+    read();
     </script>
 </body>
 </html>
