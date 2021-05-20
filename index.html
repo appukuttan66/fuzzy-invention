@@ -12,22 +12,22 @@
 
             var Linkdb = Parse.Object.extend("Linkdb");
 
-        var shortlink = key;
+            var shortlink = key;
 
-        function read() {
-            query = new Parse.Query(Linkdb);
-            query.equalTo("shortlink", shortlink);
-            query.first().then(function(pet){
-                if(pet){
-                    window.location.href = pet.get("url");
-                } else {
-                    alert("Nothing found, please try again");
-                }
-            }).catch(function(error){
-                alert("Error: " + error.code + " " + error.message);       
-            });
-        }
-        read();
+           function read() {
+                query = new Parse.Query(Linkdb);
+                query.equalTo("shortlink", shortlink);
+                query.first().then(function(pet){
+                    if(pet){
+                        window.location.href = pet.get("url");
+                    } else {
+                        window.location.href = '/home.htm';
+                   }
+                }).catch(function(error){
+                    alert("Error: " + error.code + " " + error.message);       
+                });
+            }
+            read();
        </script>
     </body>
 </html>
