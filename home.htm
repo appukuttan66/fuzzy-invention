@@ -52,24 +52,25 @@
   var nameIn = document.querySelector("#name-in");
   var linkOut = document.querySelector("#link-out");
   var show = document.querySelector(".out");
- var query = 
+
+
   function create() {
     if (urlIn.value === '' || nameIn.value === '') {
         alert("Missing url or shortlink");
     }
- else {
-    query = new Parse.Query(Linkdb);
-                query.equalTo("shortlink", shortlink);
-                query.first().then(function(pet){
-                    if(pet){
-                        alert("this short link is taken");
-                    } else {
-                        newlink = new Linkdb();
+    else {
+        query = new Parse.Query(Linkdb);
+        query.equalTo("shortlink", shortlink);
+        query.first().then(function(pet){
+          if(pet){
+                  alert("this short link is taken");
+          } else {
+                  newlink = new Linkdb();
 
-      newlink.set("url", urlIn.value);
-      newlink.set("shortlink", nameIn.value);
+                  newlink.set("url", urlIn.value);
+                  newlink.set("shortlink", nameIn.value);
     
-      newlink.save().then(function(link) {
+                  newlink.save().then(function(link) {
       
       var output = 'https://fz.on.fleek.co/?' +  link.get("shortlink");
       linkOut.getAttribute("href");
@@ -80,7 +81,6 @@
       }).catch(function(error){
            alert('Error: ' + error.message);
       });
-    }
   }
                    }
                 }).catch(function(error){
