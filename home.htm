@@ -52,13 +52,20 @@
   var nameIn = document.querySelector("#name-in");
   var linkOut = document.querySelector("#link-out");
   var show = document.querySelector(".out");
-
+ var query = 
   function create() {
     if (urlIn.value === '' || nameIn.value === '') {
-        console.log("Missing url or shortlink");
-    } else {
-    
-      newlink = new Linkdb();
+        alert("Missing url or shortlink");
+    }
+ else {
+    query = new Parse.Query(Linkdb);
+                query.equalTo("shortlink", shortlink);
+                query.first().then(function(pet){
+                    if(pet){
+                        alert("this short link is taken");
+                    } else {
+                        newlink = new Linkdb();
+
       newlink.set("url", urlIn.value);
       newlink.set("shortlink", nameIn.value);
     
@@ -75,6 +82,12 @@
       });
     }
   }
+                   }
+                }).catch(function(error){
+                    alert("Error: " + error.code + " " + error.message);       
+                });
+            }
+      
   </script>
 </body>
 </html>
