@@ -52,25 +52,31 @@
   var nameIn = document.querySelector("#name-in");
   var linkOut = document.querySelector("#link-out");
   var show = document.querySelector(".out");
-
-
+  
   function create() {
     if (urlIn.value === '' || nameIn.value === '') {
         alert("Missing url or shortlink");
+    } else {
+    query = new Parse.Query(Linkdb);
+                query.equalTo("shortlink", nameIn.value);
+                query.first().then(function(pet){
+                    if(pet){
+                        alert('shortlink taken !! Tettu with a different name');
+                    } else {
+                        saveURI();
+                   }
+                }).catch(function(error){
+                    alert("Error: " + error.code + " " + error.message);       
+                });
     }
-    else {
-        query = new Parse.Query(Linkdb);
-        query.equalTo("shortlink", shortlink);
-        query.first().then(function(pet){
-          if(pet){
-                  alert("this short link is taken");
-          } else {
-                  newlink = new Linkdb();
+  }
+  function saveURI() {
 
-                  newlink.set("url", urlIn.value);
-                  newlink.set("shortlink", nameIn.value);
+      newlink = new Linkdb();
+      newlink.set("url", urlIn.value);
+      newlink.set("shortlink", nameIn.value);
     
-                  newlink.save().then(function(link) {
+      newlink.save().then(function(link) {
       
       var output = 'https://fz.on.fleek.co/?' +  link.get("shortlink");
       linkOut.getAttribute("href");
@@ -78,7 +84,10 @@
       linkOut.textContent = output;
       show.style.display = 'block';
       
- })}})}}
+      }).catch(function(error){
+           alert('Error: ' + error.message);
+      });
+  }
       
   </script>
 </body>
