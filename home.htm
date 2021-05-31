@@ -61,7 +61,7 @@
                 query.equalTo("shortlink", nameIn.value);
                 query.first().then(function(pet){
                     if(pet){
-                        alert('shortlink taken !! Tettu with a different name');
+                        alert('shortlink taken !! Try with a different name');
                     } else {
                         saveURI();
                    }
